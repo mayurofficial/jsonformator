@@ -450,7 +450,7 @@ export default function JsonEditor() {
               cursor: 'pointer', 
               display: 'flex', 
               alignItems: 'center', 
-              justify: 'center', 
+              justifyContent: 'center', 
               gap: '0.3rem', 
               marginTop: '0.15rem' 
             }}
@@ -598,7 +598,7 @@ export default function JsonEditor() {
                     display: 'flex',
                     flexWrap: 'wrap',
                     alignItems: 'center',
-                    justify: 'space-between',
+                    justifyContent: 'space-between',
                     gap: '0.75rem',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
                   }}
