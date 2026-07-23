@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { getJsonStats, repairJsonString } from '../../utils/json-core';
-import { AlertCircle, CheckCircle, Wrench } from 'lucide-react';
+import { AlertCircle, CheckCircle, Wrench, Lightbulb } from 'lucide-react';
 
 export default function JsonValidator() {
   const [input, setInput] = useState(`{\n  name: 'JSONFormator',\n  features: ['validator', 'repair'],\n}`);
@@ -58,18 +58,34 @@ export default function JsonValidator() {
             </div>
           </div>
         ) : (
-          <div style={{ background: 'rgba(244, 63, 94, 0.1)', border: '1px solid var(--accent-rose)', padding: '1rem', borderRadius: '0.5rem', color: 'var(--accent-rose)', display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-            <AlertCircle size={24} style={{ marginTop: '0.1rem', flexShrink: 0 }} />
-            <div>
-              <strong style={{ fontSize: '0.95rem' }}>Syntax Error Detected</strong>
-              <p style={{ fontSize: '0.85rem', color: '#fecdd3', margin: '0.25rem 0' }}>{result.error}</p>
-              <button 
-                onClick={handleAutoRepair}
-                style={{ background: 'var(--accent-rose)', color: '#fff', border: 'none', padding: '0.25rem 0.6rem', borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', marginTop: '0.4rem' }}
-              >
-                Click to Auto-Fix
-              </button>
+          <div style={{ background: 'rgba(244, 63, 94, 0.08)', border: '1px solid var(--accent-rose)', padding: '1rem', borderRadius: '0.5rem', color: 'var(--accent-rose)' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '0.75rem' }}>
+              <AlertCircle size={24} style={{ marginTop: '0.1rem', flexShrink: 0 }} />
+              <div>
+                <strong style={{ fontSize: '0.95rem' }}>Syntax Error Detected</strong>
+                <p style={{ fontSize: '0.85rem', color: '#9f1239', margin: '0.25rem 0' }}>{result.error}</p>
+                <button 
+                  onClick={handleAutoRepair}
+                  style={{ background: 'var(--accent-rose)', color: '#fff', border: 'none', padding: '0.25rem 0.6rem', borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', marginTop: '0.4rem' }}
+                >
+                  Click to Auto-Fix
+                </button>
+              </div>
             </div>
+
+            {/* Diagnostic Suggestions */}
+            {result.suggestions && result.suggestions.length > 0 && (
+              <div style={{ background: '#ffffff', border: '1px solid var(--border-subtle)', borderRadius: '0.375rem', padding: '0.75rem 1rem', marginTop: '0.5rem' }}>
+                <strong style={{ fontSize: '0.82rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.3rem', marginBottom: '0.3rem' }}>
+                  <Lightbulb size={14} color="var(--accent-emerald)" /> Diagnostic Suggestions to Fix:
+                </strong>
+                <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                  {result.suggestions.map((sug, idx) => (
+                    <li key={idx}>{sug}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </div>

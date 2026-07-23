@@ -1,22 +1,28 @@
 ---
-const navItems = [
-  { name: 'Formatter', href: '/' },
-  { name: 'Compare', href: '/compare' },
-  { name: 'Validator', href: '/validator' },
-  { name: 'Minify', href: '/minify' },
-  { name: 'JSON to CSV', href: '/json-to-csv' },
-  { name: 'JSON to YAML', href: '/json-to-yaml' },
-  { name: 'JSON to TS', href: '/json-to-typescript' },
-  { name: 'JSON to Go', href: '/json-to-go' },
-  { name: 'Tree View', href: '/tree' },
+const mainNavItems = [
+  { name: 'JSON Formatter', href: '/' },
+  { name: 'JSON Compare', href: '/compare' },
+  { name: 'JSON Validator', href: '/validator' },
+  { name: 'JSON Minifier', href: '/minify' },
+];
+
+const moreTools = [
+  { name: 'JSON to CSV', href: '/json-to-csv', desc: 'Export JSON arrays to tabular CSV' },
+  { name: 'JSON to YAML', href: '/json-to-yaml', desc: 'Convert JSON to YAML manifests' },
+  { name: 'JSON to TypeScript', href: '/json-to-typescript', desc: 'Generate TypeScript type definitions' },
+  { name: 'JSON to Go Struct', href: '/json-to-go', desc: 'Convert JSON to Golang structs' },
+  { name: 'Tree View Explorer', href: '/tree', desc: 'Visual interactive node graph viewer' },
 ];
 
 const currentPath = Astro.url.pathname;
+const isMoreActive = moreTools.some(t => currentPath === t.href);
 ---
+
 <header class="glass-header">
-  <div class="container" style="display: flex; align-items: center; justify-content: space-between; height: 4rem;">
-    <!-- Brand Logo -->
-    <a href="/" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text-primary);" aria-label="JSON Formator Home">
+  <!-- Full-Width Header Container (Aligned perfectly with edge-to-edge IDE layout) -->
+  <div style="width: 100%; display: flex; align-items: center; justify-content: space-between; height: 4rem; padding: 0 1.25rem;">
+    <!-- Brand Logo (Navigates to Marketing Landing Page) -->
+    <a href="/landing" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text-primary);" aria-label="JSON Formator Landing Page">
       <div style="background: var(--accent-emerald-glow); border: 1px solid rgba(5, 150, 105, 0.3); border-radius: 0.5rem; padding: 0.4rem; display: flex; align-items: center; justify-content: center;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -31,10 +37,10 @@ const currentPath = Astro.url.pathname;
       </div>
     </a>
 
-    <!-- Nav Items -->
+    <!-- Nav Items (SEO Keyword Optimized Anchor Labels) -->
     <nav style="display: flex; align-items: center; gap: 0.5rem;" aria-label="Main Navigation">
-      <div class="nav-scroll-container" style="display: flex; gap: 0.25rem; overflow-x: auto; max-width: 700px; padding: 0.25rem 0;">
-        {navItems.map(item => {
+      <div style="display: flex; gap: 0.35rem; align-items: center;">
+        {mainNavItems.map(item => {
           const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
           return (
             <a 
@@ -57,6 +63,45 @@ const currentPath = Astro.url.pathname;
             </a>
           );
         })}
+
+        <!-- More Tools Click Dropdown Menu -->
+        <div class="dropdown-wrapper" style="position: relative;">
+          <button 
+            id="more-tools-btn"
+            class="dropdown-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-haspopup="true"
+            style={`
+              padding: 0.35rem 0.75rem; 
+              border-radius: 0.375rem; 
+              font-size: 0.85rem; 
+              font-weight: 600; 
+              cursor: pointer;
+              background: ${isMoreActive ? 'var(--bg-card-hover)' : 'transparent'};
+              color: ${isMoreActive ? 'var(--accent-emerald)' : 'var(--text-secondary)'};
+              border: ${isMoreActive ? '1px solid var(--border-highlight)' : 'none'};
+              display: flex;
+              align-items: center;
+              gap: 0.25rem;
+            `}
+          >
+            More Tools <span style="font-size: 0.7rem;">▾</span>
+          </button>
+
+          <div id="more-tools-menu" class="dropdown-menu" style="position: absolute; top: 100%; right: 0; margin-top: 0.4rem; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0.5rem; padding: 0.4rem; min-width: 230px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 50; display: none;">
+            {moreTools.map(tool => (
+              <a 
+                href={tool.href}
+                style="display: block; padding: 0.45rem 0.75rem; border-radius: 0.375rem; text-decoration: none; color: var(--text-primary); transition: background 0.15s ease;"
+                class="dropdown-item"
+              >
+                <div style="font-weight: 600; font-size: 0.82rem;">{tool.name}</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">{tool.desc}</div>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -67,3 +112,32 @@ const currentPath = Astro.url.pathname;
     </div>
   </div>
 </header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('more-tools-btn');
+    const menu = document.getElementById('more-tools-menu');
+
+    if (btn && menu) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isVisible = menu.style.display === 'block';
+        menu.style.display = isVisible ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', isVisible ? 'false' : 'true');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+          menu.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .dropdown-item:hover {
+    background: var(--bg-primary);
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonEditor from '../components/islands/JsonEditor';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "Is JSON Formator safe to use for sensitive data?",
+    answer: "Yes, 100%. JSON Formator executes all JSON parsing, formatting, and validation strictly client-side using Web Workers within your browser. No data or API payloads are ever transmitted over the network or stored on any server."
+  },
+  {
+    question: "How do I format JSON with keyboard shortcuts?",
+    answer: "You can press Ctrl + Enter (or Cmd + Enter on macOS) inside the editor to format JSON instantly, or press Ctrl + Shift + F to minify whitespace."
+  },
+  {
+    question: "Can JSON Formator repair invalid JSON automatically?",
+    answer: "Yes. Our intelligent auto-repair algorithm detects and fixes common syntax issues such as trailing commas in objects or arrays, unquoted keys, single-quoted strings, missing root braces, and comments."
+  },
+  {
+    question: "Does it support large JSON files above 10MB?",
+    answer: "Yes, our Web Worker thread offloading ensures high-volume parsing (up to 50MB+) without locking or freezing your main browser UI thread."
+  }
+];
+
+const jsSnippet = `const jsonStr = '{"key":"value"}';
+const formatted = JSON.stringify(
+  JSON.parse(jsonStr), 
+  null, 
+  2
+);`;
+
+const pythonSnippet = `import json
+
+raw_json = '{"key":"value"}'
+parsed = json.loads(raw_json)
+formatted = json.dumps(parsed, indent=2)`;
+---
+
+<BaseLayout 
+  title="JSON Formator — The #1 Privacy-First JSON Developer Suite"
+  description="All-in-one developer suite for formatting, viewing, minifying, comparing, and repairing JSON data online with 100% in-browser Web Worker privacy."
+>
+  <div class="container" style="padding-top: 2rem;">
+    <!-- Hero Section -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.2;">
+        The Ultimate <span style="color: var(--accent-emerald);">JSON Developer Suite</span>
+      </h1>
+      <p style="font-size: 1rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Format, view, validate, and repair raw JSON strings instantly in your browser with zero latency. 100% private, Web Worker powered.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 0.75rem;">
+        <a href="/" style="background: var(--accent-emerald); color: #fff; padding: 0.6rem 1.25rem; border-radius: 0.375rem; font-weight: 700; text-decoration: none; font-size: 0.9rem;">
+          Launch Formatter App
+        </a>
+        <a href="/compare" style="background: var(--bg-card); border: 1px solid var(--border-highlight); color: var(--text-primary); padding: 0.6rem 1.25rem; border-radius: 0.375rem; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+          Compare JSON Files
+        </a>
+      </div>
+    </div>
+
+    <!-- Live Preview Tool Island -->
+    <section style="margin: 2.5rem 0;">
+      <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; text-align: center; color: var(--text-secondary);">Interactive Editor Preview</h2>
+      <JsonEditor client:idle />
+    </section>
+
+    <!-- Technical Guide & SEO Copy -->
+    <section style="margin: 3.5rem 0;">
+      <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem;">How to Format JSON Programmatically</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem;">
+        JSON (JavaScript Object Notation) is the standard format for REST APIs, configuration files, and web services. Below are quick snippets demonstrating native JSON formatting in popular programming languages:
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+        <!-- JavaScript / Node.js -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0.5rem; padding: 1.25rem;">
+          <h3 style="font-size: 0.9rem; font-weight: 700; color: var(--accent-emerald); margin-bottom: 0.5rem;">JavaScript / Node.js</h3>
+          <pre style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-primary); padding: 0.75rem; border-radius: 0.375rem; overflow-x: auto; color: var(--text-primary);"><code>{jsSnippet}</code></pre>
+        </div>
+
+        <!-- Python -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0.5rem; padding: 1.25rem;">
+          <h3 style="font-size: 0.9rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem;">Python</h3>
+          <pre style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-primary); padding: 0.75rem; border-radius: 0.375rem; overflow-x: auto; color: var(--text-primary);"><code>{pythonSnippet}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section with Schema -->
+    <SeoFaq faqs={faqs} />
+
+    <!-- Related Tools Crawler Mesh -->
+    <RelatedTools currentHref="/landing" />
+  </div>
+</BaseLayout>
