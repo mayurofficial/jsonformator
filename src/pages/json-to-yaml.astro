@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonToYaml from '../components/islands/JsonToYaml';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "What is the difference between JSON and YAML?",
+    answer: "YAML is a human-friendly data serialization standard that uses indentation instead of brackets and quotes. JSON is a subset of YAML, making conversion seamless."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON to YAML Converter — Instant Online Serializer"
+  description="Convert JSON payloads into clean YAML data online. Ideal for Kubernetes manifests, Docker Compose, and CI/CD pipelines."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "JSON to YAML", item: "https://jsonformator.com/json-to-yaml" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON to <span style="color: var(--accent-emerald);">YAML</span> Converter
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Convert JSON strings into clean YAML data for DevOps configuration files and Kubernetes manifests.
+      </p>
+    </div>
+
+    <JsonToYaml client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/json-to-yaml" />
+  </div>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonToGo from '../components/islands/JsonToGo';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "Does it generate struct tags like `json:\"key\"`?",
+    answer: "Yes! The Go struct generator creates idiomatic Go structs with camelCase struct field names and matching `json:\"...\"` struct tags."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON to Go Struct Generator — Instant Golang Type Converter"
+  description="Convert JSON payloads into idiomatic Go structs with json tags automatically online."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "JSON to Go", item: "https://jsonformator.com/json-to-go" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON to <span style="color: var(--accent-emerald);">Go Struct</span> Generator
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Convert JSON strings into idiomatic Golang struct definitions with automatic json struct tags.
+      </p>
+    </div>
+
+    <JsonToGo client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/json-to-go" />
+  </div>
+</BaseLayout>

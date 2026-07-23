@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonToTypescript from '../components/islands/JsonToTypescript';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "How are TypeScript interfaces generated from JSON?",
+    answer: "The generator inspects the structure of your JSON object and recursively constructs strongly typed TypeScript interfaces with optional and nested object support."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON to TypeScript Interface Generator — Auto Type Definitions"
+  description="Convert raw JSON objects into strongly typed TypeScript interfaces and type definitions automatically online."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "JSON to TypeScript", item: "https://jsonformator.com/json-to-typescript" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON to <span style="color: var(--accent-emerald);">TypeScript</span> Type Generator
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Generate clean, production-ready TypeScript interfaces and type definitions directly from API JSON payloads.
+      </p>
+    </div>
+
+    <JsonToTypescript client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/json-to-typescript" />
+  </div>
+</BaseLayout>

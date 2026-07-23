@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonTree from '../components/islands/JsonTree';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "How does the visual tree explorer help with complex JSON?",
+    answer: "The tree visualizer organizes deeply nested JSON objects into expandable and collapsible node trees, making complex hierarchical data easy to inspect."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON Tree Explorer — Visual Node Tree Graph & Inspector"
+  description="Explore complex JSON objects visually with expandable node graph trees online. Inspect nested structures with zero latency."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "Tree Explorer", item: "https://jsonformator.com/tree" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        Visual <span style="color: var(--accent-emerald);">JSON Tree</span> Explorer
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Inspect and navigate deeply nested JSON objects using an expandable and collapsible node tree graph.
+      </p>
+    </div>
+
+    <JsonTree client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/tree" />
+  </div>
+</BaseLayout>

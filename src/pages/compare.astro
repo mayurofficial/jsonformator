@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonCompare from '../components/islands/JsonCompare';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "How does the side-by-side JSON diff tool work?",
+    answer: "The compare tool formats both input JSON payloads and performs a line-by-line semantic diff. Additions in the modified JSON are highlighted in green, while removals from the original JSON are highlighted in rose red."
+  },
+  {
+    question: "Is there a limit on the number of lines I can compare?",
+    answer: "No. The diff engine runs in a client-side Web Worker thread, allowing you to diff large API responses with thousands of lines without browser lag."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON Compare & Visual Diff Tool — Side-by-Side Comparison"
+  description="Compare two JSON objects or files side-by-side. Highlight added, deleted, or modified keys and values instantly with 100% in-browser privacy."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "Compare JSON", item: "https://jsonformator.com/compare" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON <span style="color: var(--accent-emerald);">Compare</span> & Visual Diff Tool
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Compare two JSON files or API responses side-by-side to highlight additions, deletions, and structural differences.
+      </p>
+    </div>
+
+    <JsonCompare client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/compare" />
+  </div>
+</BaseLayout>

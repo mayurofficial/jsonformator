@@ -1,0 +1,44 @@
+---
+const allTools = [
+  { title: "JSON Formatter & Viewer", desc: "Beautify, format, and inspect raw JSON with live statistics.", href: "/", icon: "{ }" },
+  { title: "JSON Compare & Visual Diff", desc: "Side-by-side visual line and property difference checker.", href: "/compare", icon: "VS" },
+  { title: "JSON Validator & Repair", desc: "Fix trailing commas, unquoted keys, single quotes, and syntax errors.", href: "/validator", icon: "✓" },
+  { title: "JSON Minifier", desc: "Compress and strip whitespaces with compression metrics.", href: "/minify", icon: "→←" },
+  { title: "JSON to CSV", desc: "Convert nested objects and arrays into tabular CSV format.", href: "/json-to-csv", icon: "CSV" },
+  { title: "JSON to YAML", desc: "Bi-directional conversion between JSON payloads and YAML data.", href: "/json-to-yaml", icon: "YML" },
+  { title: "JSON to TypeScript", desc: "Auto-generate TypeScript interfaces and types from JSON.", href: "/json-to-typescript", icon: "TS" },
+  { title: "JSON to Go Struct", desc: "Convert JSON fields to idiomatic Go struct tags.", href: "/json-to-go", icon: "GO" },
+  { title: "JSON Tree Explorer", desc: "Collapsible visual node tree graph for deep JSON objects.", href: "/tree", icon: "🌳" },
+];
+
+export interface Props {
+  currentHref: string;
+}
+
+const { currentHref } = Astro.props;
+const filteredTools = allTools.filter(t => t.href !== currentHref);
+---
+
+<section style="margin: 4rem 0;" aria-labelledby="related-tools-heading">
+  <h2 id="related-tools-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    Related Developer Utilities
+  </h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem;">
+    {filteredTools.slice(0, 6).map(tool => (
+      <a href={tool.href} style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 0.5rem; padding: 1.25rem; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.2s ease;">
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="font-size: 1rem; font-weight: 700; color: var(--text-primary);">{tool.title}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-card-hover); border: 1px solid var(--border-highlight); padding: 0.15rem 0.4rem; border-radius: 0.25rem; color: var(--accent-emerald);">{tool.icon}</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">{tool.desc}</p>
+        </div>
+        <div style="margin-top: 0.75rem; font-size: 0.75rem; font-weight: 600; color: var(--accent-emerald); display: flex; align-items: center; gap: 0.25rem;">
+          <span>Open Tool</span> &rarr;
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

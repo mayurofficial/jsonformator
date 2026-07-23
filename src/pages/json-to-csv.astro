@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonToCsv from '../components/islands/JsonToCsv';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "Can I convert nested JSON objects to CSV?",
+    answer: "Yes! Our converter flattens nested JSON objects into dot-notation column headers (e.g., 'author.name') to create clean tabular CSV rows."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON to CSV Converter — Online Array & Object Flattener"
+  description="Convert JSON arrays and objects into tabular CSV format online. Export to Excel or CSV files with 100% client-side privacy."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "JSON to CSV", item: "https://jsonformator.com/json-to-csv" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON to <span style="color: var(--accent-emerald);">CSV</span> Converter
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Flatten JSON arrays and objects into tabular CSV files for Excel, Google Sheets, or data analysis.
+      </p>
+    </div>
+
+    <JsonToCsv client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/json-to-csv" />
+  </div>
+</BaseLayout>

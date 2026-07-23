@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonMinifier from '../components/islands/JsonMinifier';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "Why should I minify JSON payloads?",
+    answer: "Minifying JSON strips non-essential whitespace, line breaks, and indentation. This reduces payload size by 20% to 50%, improving API response times and bandwidth efficiency."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON Minifier & Compressor — Strip Whitespace Online"
+  description="Free online JSON Minifier. Compress JSON payloads, strip whitespace and newlines, and calculate payload size savings instantly."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "Minify JSON", item: "https://jsonformator.com/minify" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON <span style="color: var(--accent-emerald);">Minifier</span> & Compressor
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Compress JSON data and remove unnecessary whitespace for lightweight web API requests.
+      </p>
+    </div>
+
+    <JsonMinifier client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/minify" />
+  </div>
+</BaseLayout>

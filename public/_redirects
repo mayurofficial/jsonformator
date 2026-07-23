@@ -1,0 +1,4 @@
+# Cloudflare CDN Canonical Redirect Rules
+https://www.jsonformator.com/* https://jsonformator.com/:splat 301
+http://jsonformator.com/* https://jsonformator.com/:splat 301
+http://www.jsonformator.com/* https://jsonformator.com/:splat 301

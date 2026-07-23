@@ -1,0 +1,49 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  url: string;
+  breadcrumbs?: Array<{ name: string; item: string }>;
+}
+
+const { title, description, url, breadcrumbs = [] } = Astro.props;
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": title,
+  "url": url,
+  "description": description,
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "browserRequirements": "Requires HTML5 and JavaScript enabled."
+};
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "JSON Formator",
+  "url": "https://jsonformator.com",
+  "logo": "https://jsonformator.com/favicon.svg"
+};
+
+const breadcrumbSchema = breadcrumbs.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((b, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": b.name,
+    "item": b.item
+  }))
+} : null;
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(webAppSchema)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(orgSchema)} />
+{breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}

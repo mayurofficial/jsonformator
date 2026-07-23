@@ -1,0 +1,65 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import SkipLink from '../components/SkipLink.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  breadcrumbs?: Array<{ name: string; item: string }>;
+}
+
+const { 
+  title, 
+  description, 
+  canonicalUrl = Astro.url.href,
+  breadcrumbs = []
+} = Astro.props;
+
+const siteDomain = 'https://jsonformator.com';
+const fullCanonical = canonicalUrl.startsWith('http') ? canonicalUrl : `${siteDomain}${canonicalUrl}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={fullCanonical} />
+
+  <!-- Preload Zero-CLS System Fonts -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:site_name" content="JSON Formator" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={fullCanonical} />
+  <meta property="og:image" content={`${siteDomain}/favicon.svg`} />
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${siteDomain}/favicon.svg`} />
+
+  <!-- Pre-rendered JSON-LD Schemas -->
+  <SchemaMarkup title={title} description={description} url={fullCanonical} breadcrumbs={breadcrumbs} />
+</head>
+<body>
+  <SkipLink />
+  <Navbar />
+  
+  <main id="main-tool" style="min-height: calc(100vh - 16rem);">
+    <slot />
+  </main>
+
+  <Footer />
+</body>
+</html>

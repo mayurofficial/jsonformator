@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonValidator from '../components/islands/JsonValidator';
+import SeoFaq from '../components/SeoFaq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+
+const faqs = [
+  {
+    question: "What syntax errors can JSON Formator repair?",
+    answer: "Our auto-repair engine fixes trailing commas in arrays and objects, unquoted key names, single-quoted strings, and missing enclosing brackets."
+  },
+  {
+    question: "How do I find the line number of a JSON error?",
+    answer: "The validator pinpoints the exact line and character position of any syntax error and highlights it automatically."
+  }
+];
+---
+
+<BaseLayout 
+  title="JSON Validator & Syntax Repair Tool — Fix Trailing Commas & Errors"
+  description="Validate JSON syntax and automatically repair trailing commas, unquoted keys, and single-quote errors online with instant error pinpointing."
+  breadcrumbs={[
+    { name: "Home", item: "https://jsonformator.com" },
+    { name: "JSON Validator", item: "https://jsonformator.com/validator" }
+  ]}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem;">
+        JSON <span style="color: var(--accent-emerald);">Validator</span> & Syntax Repair
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+        Validate JSON syntax compliance against RFC 8259 and automatically repair common syntax errors in one click.
+      </p>
+    </div>
+
+    <JsonValidator client:idle />
+
+    <SeoFaq faqs={faqs} />
+    <RelatedTools currentHref="/validator" />
+  </div>
+</BaseLayout>
