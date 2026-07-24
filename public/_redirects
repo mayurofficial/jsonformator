@@ -1,9 +1,4 @@
-# Cloudflare Pages Relative _redirects Configuration
-/compare/ /compare 301
-/validator/ /validator 301
-/minify/ /minify 301
-/json-to-csv/ /json-to-csv 301
-/json-to-yaml/ /json-to-yaml 301
-/json-to-typescript/ /json-to-typescript 301
-/json-to-go/ /json-to-go 301
-/tree/ /tree 301
+# Cloudflare Pages _redirects
+# Note: Trailing slash normalization is handled automatically by Astro's
+# trailingSlash: 'never' config + Cloudflare Pages — no manual rules needed.
+# Adding duplicate rules here causes ERR_TOO_MANY_REDIRECTS loops.
